@@ -9,12 +9,17 @@ public class Sved : MonoBehaviour {
 
 	Rect StaminaRect;
 	Texture2D Staminatext;
+	Rect borderRect;
+	Texture2D bordertext;
 
 	// Use this for initialization
 	void Start () {
 		StaminaRect = new Rect (Screen.width / 10, Screen.height * 9 / 10, Screen.width / 3, Screen.height / 50);
+		borderRect = new Rect (Screen.width / 10-2, Screen.height * 9 / 10-2, Screen.width / 3+4, Screen.height / 50+4);
 		Staminatext = new Texture2D (1, 1);
-
+		bordertext = new Texture2D (1, 1);
+		bordertext.SetPixel (0, 0, Color.black);
+		bordertext.Apply();
 	}
 	
 	// Update is called once per frame
@@ -34,7 +39,7 @@ public class Sved : MonoBehaviour {
 			}
 		} else {
 
-			sved -= 0.25f * Time.deltaTime;
+			sved -= 1.25f * Time.deltaTime;
 			if (sved < 0) {
 				sved = 0;
 
@@ -49,6 +54,8 @@ public class Sved : MonoBehaviour {
 		else if (ratio > 0.9) Staminatext.SetPixel (0, 0, Color.red);
 		else if (ratio > 0.5 && ratio < 0.9) Staminatext.SetPixel (0, 0, Color.yellow);
 		Staminatext.Apply();
+		GUI.DrawTexture (borderRect, bordertext);
 		GUI.DrawTexture (StaminaRect, Staminatext);
+
 	}
 }
